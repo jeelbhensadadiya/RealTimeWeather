@@ -18,7 +18,7 @@ import coil.compose.AsyncImage
 import com.training.realtimeweather.domain.entity.WeatherModelEntity
 
 @Composable
-fun WeatherFeaturedDetails(data: WeatherModelEntity) {
+fun WeatherTemperature(data: WeatherModelEntity) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

@@ -1,4 +1,4 @@
-package com.training.realtimeweather.presentation
+package com.training.realtimeweather.ui.page
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -6,10 +6,11 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,21 +20,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.training.realtimeweather.domain.entity.WeatherModelEntity
+import com.training.realtimeweather.presentation.WeatherUiState
+import com.training.realtimeweather.presentation.WeatherViewModel
 import com.training.realtimeweather.ui.components.WeatherCardGrid
-import com.training.realtimeweather.ui.components.WeatherFeaturedDetails
 import com.training.realtimeweather.ui.components.WeatherSearchBar
+import com.training.realtimeweather.ui.components.WeatherTemperature
 
 @Composable
 fun WeatherPage(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     viewModel: WeatherViewModel
 ) {
     val uiState by viewModel.weatherUiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(8.dp),
+            .padding(10.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
@@ -69,8 +72,6 @@ fun WeatherPage(
                     WeatherContent(result.weatherModel)
                 }
             }
-
-            null -> {}
         }
     }
 }
@@ -84,7 +85,7 @@ fun WeatherContent(data: WeatherModelEntity) {
         verticalArrangement = Arrangement.Center
     ) {
 
-        WeatherFeaturedDetails(data)
+        WeatherTemperature(data)
 
         Spacer(modifier = Modifier.height(8.dp))
 
